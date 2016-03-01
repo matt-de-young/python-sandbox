@@ -82,6 +82,12 @@ class LinkedList(object):
             link = link.next
         return newList
 
+    def swap(self, i, k):
+        buf = i.data
+        i.data = k.data
+        k.data = buf
+        return self
+
 def tests():
     q = LinkedList();
     for num in range(0,10):
