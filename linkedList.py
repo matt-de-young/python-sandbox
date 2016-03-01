@@ -36,6 +36,7 @@ class LinkedList(object):
     def __radd__(self, other):
         return other+self.__str__()
 
+    # Append to back of list
     def add(self, data):
         if self.length < 1:
             self.last = self.first = Link(None, data, None)
@@ -43,12 +44,15 @@ class LinkedList(object):
             self.last.next = self.last = Link(self.last, data, None)
         self.length += 1
 
+    # Prepend to front of list
     def push(self, data):
-        self.add(data)
+        if self.length < 1:
+            self.last = self.first = Link(None, data, None)
+        else:
+            self.first.prev = self.first = Link(None, data, self.first)
+        self.length += 1
 
-    def peek(self):
-        return self.first.data
-
+    # Remove from front
     def remove(self):
         if self.length == 0:
             return False
@@ -62,15 +66,6 @@ class LinkedList(object):
         self.length -= 1
         return data
 
+    # Remove from front
     def pop(self):
-        if self.length == 0:
-            return False
-
-        data = self.last.data
-        if self.length == 1:
-            self.first = self.last = None
-        else:
-            self.last = self.last.prev
-            self.last.next = None
-        self.length -= 1
-        return data
+        self.remove()

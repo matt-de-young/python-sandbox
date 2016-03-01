@@ -26,7 +26,7 @@ def merge(left, right):
 
     # put smaller from each list in front
     while left.length>0 and right.length>0:
-        if left.peek() <= right.peek():
+        if left.first.data <= right.first.data:
             result.add(left.remove())
         else:
             result.add(right.remove())
