@@ -19,9 +19,9 @@ class LinkedList(object):
         i = self.first
         string = ""
         if i == None:
-            return
+            return ""
         while True:
-            string += "[%d]" % i.data
+            string += "["+str(i.data)+"]"
             if i.next == None:
                 break
             else:
@@ -37,59 +37,40 @@ class LinkedList(object):
         return other+self.__str__()
 
     def add(self, data):
-        if self.first is None:
-            self.first = self.last = Link(None, data, None)
+        if self.length < 1:
+            self.last = self.first = Link(None, data, None)
         else:
-            self.last.next = Link(self.last, data, None)
-            self.last = self.last.next
+            self.last.next = self.last = Link(self.last, data, None)
         self.length += 1
+
+    def push(self, data):
+        self.add(data)
 
     def peek(self):
         return self.first.data
 
     def remove(self):
-        if self.first is None:
+        if self.length == 0:
             return False
+
+        data = self.first.data
+        if self.length == 1:
+            self.first = self.last = None
         else:
-            data = self.first.data
             self.first = self.first.next
             self.first.prev = None
-            self.length -= 1
-            return data
-
-    def push(self, data):
-        self.add(data)
+        self.length -= 1
+        return data
 
     def pop(self):
-        if self.last is None:
+        if self.length == 0:
             return False
+
+        data = self.last.data
+        if self.length == 1:
+            self.first = self.last = None
         else:
-            data = self.last.data
             self.last = self.last.prev
             self.last.next = None
-            self.length -= 1
-            return data
-
-    def subList(self, i, k):
-        if i > k or self.length < k:
-            return False
-        link = self.first
-        newList = LinkedList()
-        for num in range(0, i):
-            link = link.next
-        for num in range(i, k):
-            newList.add(link.data)
-            link = link.next
-        return newList
-
-    def swap(self, i, k):
-        buf = i.data
-        i.data = k.data
-        k.data = buf
-        return self
-
-def tests():
-    q = LinkedList();
-    for num in range(0,10):
-        q.add(num);
-    print q
+        self.length -= 1
+        return data
