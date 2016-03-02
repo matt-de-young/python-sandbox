@@ -1,4 +1,4 @@
-class hashTable(object):
+class hashMap(object):
 
     def __init__(self, size):
         self.table = [None] * size
